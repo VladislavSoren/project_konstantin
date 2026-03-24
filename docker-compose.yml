@@ -1,0 +1,24 @@
+services:
+  app:
+    build:
+      dockerfile: ./Dockerfile
+      context: ./
+    ports:
+      - "8000:8000"
+    command: python manage.py runserver
+
+  pg:
+    image: postgres:17
+    environment:
+      POSTGRES_DB: ${DB_NAME:-db_name}
+      POSTGRES_USER: ${DB_USER:-admin}
+      POSTGRES_PASSWORD: ${DB_PASSWORD:-secret}
+      PGDATA: /var/lib/postgresql/data/pgdata
+    ports:
+      # - "${DB_PORT_OUT}:${DB_PORT}"
+      - "6543:5432"
+    volumes:
+      - db-data:/var/lib/postgresql/data/
+
+volumes:
+  db-data:
