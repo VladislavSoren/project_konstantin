@@ -3,7 +3,10 @@ services:
     build:
       dockerfile: ./Dockerfile
       context: ./
+    # depends_on:
+    #   - pg
     ports:
+      # - "127.0.0.1:8000:8000"
       - "8000:8000"
     command: python manage.py runserver
 
